@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/AuthContext";
 
 function Header() {
+  const { itemCount } = useCart();
+  const { user } = useAuth();
   return (
     <header>
       <div className="container">
@@ -12,7 +16,7 @@ function Header() {
             <li><a href="#chef">Chefs</a></li><li><a href="#contact">Contact</a></li>
           </ul>
         </nav>
-        <div className="header-btn"><Link to="/login" className="login-btn">Login</Link><Link to="/menu" className="order-btn">Order Now</Link></div>
+        <div className="header-btn">{user ? <Link to="/profile" className="login-btn">Profile</Link> : <Link to="/login" className="login-btn">Login</Link>}<Link to="/cart" className="order-btn">Cart ({itemCount})</Link></div>
       </div>
     </header>
   );
