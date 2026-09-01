@@ -26,6 +26,10 @@ export function CartProvider({ children }) {
     setCartItems((items) => items.filter((item) => item.id !== id));
   }
 
+  function clearCart() {
+    setCartItems([]);
+  }
+
   const value = useMemo(() => ({
     cartItems,
     itemCount: cartItems.reduce((total, item) => total + item.quantity, 0),
@@ -33,6 +37,7 @@ export function CartProvider({ children }) {
     addToCart,
     changeQuantity,
     removeFromCart,
+    clearCart,
   }), [cartItems]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

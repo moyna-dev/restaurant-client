@@ -8,6 +8,7 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Cart from "../pages/Cart/Cart";
 import Profile from "../pages/Profile/Profile";
+import AdminMenu from "../pages/AdminMenu/AdminMenu";
 import NotFound from "../pages/NotFound/NotFound";
 function AppRoutes() {
   return (
@@ -20,11 +21,11 @@ function AppRoutes() {
           <Route path="contact" element={<Contact />} />
           <Route path="cart" element={<Cart />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="admin/menu" element={<AdminMenu />} />
         </Route>
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
