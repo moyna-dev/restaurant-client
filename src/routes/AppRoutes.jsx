@@ -9,6 +9,7 @@ import Register from "../pages/Register/Register";
 import Cart from "../pages/Cart/Cart";
 import Profile from "../pages/Profile/Profile";
 import AdminMenu from "../pages/AdminMenu/AdminMenu";
+import MyOrders from "../pages/MyOrders/MyOrders";
 import NotFound from "../pages/NotFound/NotFound";
 function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ function AppRoutes() {
           <Route path="contact" element={<Contact />} />
           <Route path="cart" element={<Cart />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="orders" element={<MyOrders />} />
           <Route path="admin/menu" element={<AdminMenu />} />
         </Route>
 

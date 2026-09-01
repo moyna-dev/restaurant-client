@@ -921,3 +921,5 @@ justify-self:start;
     color:var(--primary);
     font-weight:600;
 }
+
+.orders-page{background:#fafafa;}.orders-list{max-width:900px;margin:auto;display:grid;gap:22px;}.order-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:25px;}.order-card-header,.order-card-footer,.order-items p{display:flex;justify-content:space-between;gap:20px;align-items:center;}.order-card-header{padding-bottom:18px;border-bottom:1px solid #eee;}.order-card h3{font-size:2rem;}.order-card p{font-size:1.5rem;color:#666;}.order-status{padding:7px 13px;border-radius:30px;font-size:1.4rem;font-weight:600;background:#fff0eb;color:var(--primary);}.status-delivered{background:#e6f7ed;color:#18864b;}.status-cancelled{background:#fdecec;color:#c52e2e;}.order-items{padding:14px 0;}.order-items p{padding:7px 0;}.order-card-footer{border-top:1px solid #eee;padding-top:18px;font-size:1.5rem;}.profile-orders-link{display:inline-block;margin-top:14px;font-size:1.6rem;font-weight:600;color:var(--primary);}
