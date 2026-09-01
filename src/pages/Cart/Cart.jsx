@@ -18,15 +18,18 @@ function Cart() {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);
   async function handleCheckout(event) {
     event.preventDefault();
     if (!user) {
       navigate("/login");
       return;
     }
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     setError("");
     setSuccessMessage("");
+    setOrderPlaced(false);
     setLoading(true);
     try {
       const response = await fetch(`${API_BASE_URL}/orders`, {
@@ -54,7 +57,8 @@ function Cart() {
         throw new Error(data.message || "Could not place your order.");
       }
       clearCart();
-      event.currentTarget.reset();
+      form.reset();
+      setOrderPlaced(true);
       setSuccessMessage(
         "Order placed successfully. The restaurant will confirm it soon."
       );
@@ -65,7 +69,10 @@ function Cart() {
     }
   }
   return (
-    <section className="cart-page page-section" aria-labelledby="cart-title">
+    <section
+      className="cart-page page-section"
+      aria-labelledby="cart-title"
+    >
       <div className="container">
         <div className="section-title">
           <h5>Your Order</h5>
@@ -74,7 +81,18 @@ function Cart() {
         {successMessage && (
           <p className="form-success">{successMessage}</p>
         )}
-        {cartItems.length === 0 ? (
+        {orderPlaced ? (
+          <div className="empty-cart">
+            <h3>Order Placed Successfully!</h3>
+            <p>
+              Your order has been placed successfully. The restaurant will
+              confirm it soon.
+            </p>
+            <Link to="/menu" className="btn">
+              Continue Shopping
+            </Link>
+          </div>
+        ) : cartItems.length === 0 ? (
           <div className="empty-cart">
             <p>Your cart is empty.</p>
             <Link to="/menu" className="btn">
@@ -86,10 +104,10 @@ function Cart() {
             <div className="cart-items">
               {cartItems.map((item) => (
                 <article className="cart-item" key={item.id}>
-                  <img src={item.image} alt={item.alt} />
+                  <img src={item.image} alt={item.alt || item.name} />
                   <div>
                     <h3>{item.name}</h3>
-                    <p>৳{item.price.toFixed(2)} each</p>
+                    <p>৳{Number(item.price).toFixed(2)} each</p>
                   </div>
                   <div className="quantity-controls">
                     <button
@@ -106,7 +124,9 @@ function Cart() {
                       +
                     </button>
                   </div>
-                  <strong>৳{(item.price * item.quantity).toFixed(2)}</strong>
+                  <strong>
+                    ৳{(Number(item.price) * item.quantity).toFixed(2)}
+                  </strong>
                   <button
                     type="button"
                     className="remove-item"
@@ -146,13 +166,21 @@ function Cart() {
                   <option value="Nagad">Nagad</option>
                   <option value="Card">Card</option>
                 </select>
-                {error && <p className="form-error">{error}</p>}
-                <button type="submit" className="btn" disabled={loading}>
+                {error && (
+                  <p className="form-error" role="alert">
+                    {error}
+                  </p>
+                )}
+                <button
+                  type="submit"
+                  className="btn"
+                  disabled={loading}
+                >
                   {loading
                     ? "Placing Order..."
                     : user
-                      ? "Place Order"
-                      : "Login To Checkout"}
+                    ? "Place Order"
+                    : "Login To Checkout"}
                 </button>
               </form>
             </aside>
